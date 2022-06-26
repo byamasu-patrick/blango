@@ -7,7 +7,7 @@ from django.utils.html import format_html
 register = template.Library()
 user_model = get_user_model()
 
-@register.filter()
+@register.filter(name="author_details")
 def author_details(author, current_user=None):
   if not isinstance(author, user_model):
     return ""
@@ -28,29 +28,29 @@ def author_details(author, current_user=None):
     suffix = ""
   return format_html("{}{}{}", prefix, name, suffix)
 
-@register.simple_tag(takes_context=True)
-def author_details_tag(context):
-  request = context['request']
-  current_user = request.user
-  post = context['post']
-  author = post.author
+# @register.simple_tag(takes_context=True)
+# def author_details_tag(context):
+#   request = context['request']
+#   current_user = request.user
+#   post = context['post']
+#   author = post.author
 
-  if author == current_user:
-        return format_html("<strong>me</strong>")
+#   if author == current_user:
+#     return format_html("<strong>me</strong>")
 
-    if author.first_name and author.last_name:
-        name = f"{author.first_name} {author.last_name}"
-    else:
-        name = f"{author.username}"
+#   if author.first_name and author.last_name:
+#       name = f"{author.first_name} {author.last_name}"
+#   else:
+#       name = f"{author.username}"
 
-    if author.email:
-        prefix = format_html('<a href="mailto:{}">', author.email)
-        suffix = format_html("</a>")
-    else:
-        prefix = ""
-        suffix = ""
+#   if author.email:
+#       prefix = format_html('<a href="mailto:{}">', author.email)
+#       suffix = format_html("</a>")
+#   else:
+#       prefix = ""
+#       suffix = ""
 
-    return format_html("{}{}{}", prefix, name, suffix)
+#   return format_html("{}{}{}", prefix, name, suffix)
 
 @register.simple_tag
 def row(extra_classes=""):
