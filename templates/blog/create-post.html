@@ -1,0 +1,11 @@
+{% load blog_extras crispy_forms_tags %}
+<h4>Create a post</h4>
+{% if request.user.is_active %}
+{% row "mt-4" %}
+    {% col %}
+        <h4>Add Post</h4>
+        {% crispy post_form %}
+    {% endcol %}
+{% endrow %}
+{% endif %}
+

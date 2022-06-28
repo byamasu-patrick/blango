@@ -12,7 +12,10 @@
                 ({{ post.content|wordcount }} words)
                 <a href="{% url "blog-post-detail" post.slug %}">Read More</a>
             </p>
-        </div>
+        </div>        
     {% endrow %}
     {% endfor %}
+    {% row 'border-bottom' %}
+        {% include 'blog/create-post.html' %}
+    {% endrow %}
 {% endblock %}
